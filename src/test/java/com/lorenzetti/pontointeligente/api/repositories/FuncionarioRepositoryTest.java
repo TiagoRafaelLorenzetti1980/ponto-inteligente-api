@@ -11,15 +11,19 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.lorenzetti.pontointeligente.api.UtilsTests;
 import com.lorenzetti.pontointeligente.api.entities.Funcionario;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
-public class FuncionarioRepositoryTest {
+public class FuncionarioRepositoryTest extends UtilsTests {
 
 	@Autowired
 	private FuncionarioRepository funcionarioRepository;
+	
+	@Autowired
+	private EmpresaRepository empresaRepository;
 	
 	private static final String CPF = "05352885062";
 	private static final String EMAIL = "teste@gmail.com";
@@ -27,11 +31,14 @@ public class FuncionarioRepositoryTest {
 	@Before
 	public void setUp() throws Exception {
 		
-		Funcionario funcionario = new Funcionario();
+		Funcionario funcionario = this.getFuncionarioRoleAdmin();
 		funcionario.setCpf(CPF);
 		funcionario.setEmail(EMAIL);
-		funcionario.setNome("NOME DO FUNCIONARIO");
 		
+		// gera o codigo automaticamente
+		funcionario.getEmpresa().setId(null);
+		
+		this.empresaRepository.save(funcionario.getEmpresa());
 		this.funcionarioRepository.save(funcionario);
 		
 	}
@@ -39,6 +46,7 @@ public class FuncionarioRepositoryTest {
 	@After
 	public final void tearDown() {
 		this.funcionarioRepository.deleteAll();
+		this.empresaRepository.deleteAll();
 	}
 	
 	@Test
