@@ -1,6 +1,7 @@
 package com.lorenzetti.pontointeligente.api;
 
 import java.util.Calendar;
+import java.util.Optional;
 import java.util.Random;
 
 import com.lorenzetti.pontointeligente.api.entities.Empresa;
@@ -12,6 +13,10 @@ import com.lorenzetti.pontointeligente.api.utils.PasswordUtils;
 
 public class UtilsTests {
 
+	protected Optional<Funcionario> getFuncionarioRoleAdmin(Boolean isOptional) {
+		return Optional.of(this.getFuncionarioRoleAdmin());
+	}
+	
 	protected Funcionario getFuncionarioRoleAdmin() {
 		
 		Funcionario funcionario = new Funcionario();
