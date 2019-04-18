@@ -44,6 +44,10 @@ public class UtilsTests {
 		
 	}
 
+	protected Optional<Lancamento> getLancamentoInicioTrabalho(Boolean isOptional) {
+		return Optional.of(this.getLancamentoInicioTrabalho());
+	}
+	
 	protected Lancamento getLancamentoInicioTrabalho() {
 		
 		Lancamento lancamento = new Lancamento();
